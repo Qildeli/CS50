@@ -1,2 +1,2 @@
 # CS50
-CS50’s Web Programming with Python and JavaScript
+This repository contains my project work for Harvard's CS50 Web Programming course, focusing on Python, JavaScript, and SQL.
