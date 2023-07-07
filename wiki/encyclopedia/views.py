@@ -3,6 +3,8 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+import random
+import markdown2
 
 from . import util
 
@@ -17,9 +19,10 @@ def entry(request, title):
     content = util.get_entry(title)
     if content is None:
         raise Http404("Encyclopedia entry does not exist.")
+    html_content = markdown2.markdown(content)
     return render(request, "encyclopedia/entry.html", {
         "title": title,
-        "content": content
+        "content": html_content
     })
 
 
@@ -72,3 +75,9 @@ def edit(request, title):
                 "title": title,
                 "content": content
             })
+
+
+def random_entry(request):
+    entries = util.list_entries()
+    random_title = random.choice(entries)
+    return HttpResponseRedirect(reverse("entry", args=[random_title]))
